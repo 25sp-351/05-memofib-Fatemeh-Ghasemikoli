@@ -1,0 +1,9 @@
+.history/
+.vscode
+.env
+*.o
+.ob
+*.exe
+.git
+.DS_Store
+*.so
