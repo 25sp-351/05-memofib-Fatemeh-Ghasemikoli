@@ -6,15 +6,15 @@ LIBS = libmemoize.so
 
 # Compiler and flags
 CC = gcc
-CFLAGS = -Wall -Wextra -pedantic -ansi -std=c11
-LDFLAGS = -ldl
+CFLAGS = -Wall -Wextra -pedantic -ansi -std=c11 -I/opt/homebrew/include
+LDFLAGS = -ldl -lgmp -L/opt/homebrew/lib
 
 # Default target
 all: main $(LIBS)
 
 # Rule to create shared library (.so) from C source file
 lib%.so: %.c cache.h
-	$(CC) -shared -fPIC $(CFLAGS) -o $@ $<
+	$(CC) -shared -fPIC $(CFLAGS) -o $@ $< $(LDFLAGS)
 
 # Build the main executable
 main: $(OBJS)

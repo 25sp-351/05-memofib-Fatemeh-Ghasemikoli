@@ -3,16 +3,14 @@
 
 #include <stdlib.h>
 #include <stdbool.h>
+#include <gmp.h>  // Include GMP for big integer support
 
 // Key and value types used in caching
 typedef int KeyType;
 #define KEY_FMT "%d"
 
-typedef unsigned long long ValueType;
-#define VALUE_FMT "%llu"
-
-// Function type for the cached provider
-typedef ValueType (*ProviderFunction)(KeyType key);
+// Function type for the cached provider (Supports GMP)
+typedef void (*ProviderFunction)(KeyType key, mpz_t result);  
 
 // Structure to store cache statistics
 typedef struct cachestat {

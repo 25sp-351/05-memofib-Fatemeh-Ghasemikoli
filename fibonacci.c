@@ -1,17 +1,30 @@
 #include "fibonacci.h"
+#include <gmp.h>
 
-#include <stdio.h>
+void calculate_fibonacci(int nth, mpz_t result) {
+    mpz_t first, second;
+    mpz_init_set_ui(first, 0);
+    mpz_init_set_ui(second, 1);
+    mpz_init(result);
 
-// Function to calculate the nth Fibonacci number using iteration
-unsigned long long calculate_fibonacci(int nth) {
-    unsigned long long first  = 0;
-    unsigned long long second = 1;
-    unsigned long long sum    = 0;
-
-    for (int ix = 0; ix < nth; ix++) {
-        sum    = first + second;
-        first  = second;
-        second = sum;
+    if (nth == 0) {
+        mpz_set(result, first);
+        return;
     }
-    return first;
+    if (nth == 1) {
+        mpz_set(result, second);
+        return;
+    }
+
+// Calculate the nth Fibonacci number
+    for (int ix = 2; ix <= nth; ix++) {
+        mpz_add(result, first, second);
+        mpz_set(first, second);
+        mpz_set(second, result);
+    }
+
+    mpz_set(result, second); // Ensures correct nth Fibonacci number is returned
+
+    mpz_clear(first);
+    mpz_clear(second);
 }
